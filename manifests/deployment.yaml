@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    labels:
+        app: employee-microservice
+        stack: frontend
+    name: employee-microservice
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: employee-microservice
+    template:
+        metadata:
+            labels:
+                app: employee-microservice
+        spec:
+            containers:
+                -   image: dhinojosa/employee-app:latest
+                    imagePullPolicy: Always
+                    env:
+                        -   name: QUARKUS_DATASOURCE_USERNAME
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: database-configmap
+                                    key: db.user
+                        -   name: QUARKUS_DATASOURCE_URL
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: database-configmap
+                                    key: db.url
+                        -   name: QUARKUS_DATASOURCE_PASSWORD
+                            valueFrom:
+                                secretKeyRef:
+                                    name: fancy-unicorn-mysql
+                                    key: mysql-root-password
+                    name: employee-microservice
+                    ports:
+                        -   name: web
+                            containerPort: 8080

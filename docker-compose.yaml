@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+    quarkus:
+        image: dhinojosa/employeeapp:1.0.0-SNAPSHOT
+        ports:
+            - '8080:8080'
+        environment:
+            QUARKUS_DATASOURCE_USERNAME: 'root'
+            QUARKUS_DATASOURCE_PASSWORD: 'ultimate_brew'
+            QUARKUS_DATASOURCE_JDBC_URL: 'jdbc:mysql://mysql:3306/employee'
+    mysql:
+        image: mysql:latest
+        ports:
+            - '23306:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'ultimate_brew'
+            MYSQL_DATABASE: 'employee'
