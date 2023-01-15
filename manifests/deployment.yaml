@@ -3,7 +3,6 @@ apiVersion: apps/v1
 metadata:
     labels:
         app: employee-microservice
-        stack: frontend
     name: employee-microservice
 spec:
     replicas: 2
@@ -16,7 +15,7 @@ spec:
                 app: employee-microservice
         spec:
             containers:
-                -   image: dhinojosa/employee-app:latest
+                -   image: dhinojosa/employeeapp:1.0.0-SNAPSHOT
                     imagePullPolicy: Always
                     env:
                         -   name: QUARKUS_DATASOURCE_USERNAME
@@ -24,7 +23,7 @@ spec:
                                 configMapKeyRef:
                                     name: database-configmap
                                     key: db.user
-                        -   name: QUARKUS_DATASOURCE_URL
+                        -   name: QUARKUS_DATASOURCE_JDBC_URL
                             valueFrom:
                                 configMapKeyRef:
                                     name: database-configmap

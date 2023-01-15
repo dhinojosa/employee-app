@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: curl-jq-debug
+spec:
+    containers:
+        -   name: curl-jq-debug
+            image: badouralix/curl-jq
+            command:
+                - "/bin/sh"
+            args:
+                -  "-c"
+                - "while true; do echo hello; sleep 10;done"
+            env:
+                -   name: QUARKUS_DATASOURCE_USERNAME
+                    valueFrom:
+                        configMapKeyRef:
+                            name: database-configmap
+                            key: db.user
+                -   name: QUARKUS_DATASOURCE_JDBC_URL
+                    valueFrom:
+                        configMapKeyRef:
+                            name: database-configmap
+                            key: db.url
+                -   name: QUARKUS_DATASOURCE_PASSWORD
+                    valueFrom:
+                        secretKeyRef:
+                            name: fancy-unicorn-mysql
+                            key: mysql-root-password

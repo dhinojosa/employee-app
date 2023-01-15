@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+    labels:
+        app: employee-microservice
+    name: employee-microservice
+spec:
+    selector:
+        app: employee-microservice
+    ports:
+        -   name: http
+            protocol: TCP
+            port: 30201
+            targetPort: 8080

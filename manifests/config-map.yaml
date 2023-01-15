@@ -4,4 +4,5 @@ metadata:
     name: database-configmap
 data:
     db.user: root
-    db.url: fancy-unicorn-mysql.default.svc.cluster.local
+    db.url: jdbc:mysql://fancy-unicorn-mysql.default.svc.cluster.local:3306/employee
+
